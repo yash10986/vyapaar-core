@@ -1,0 +1,8 @@
+# Local vault snapshots and imported bank statements (runtime artefacts)
+/backups/
+/imports/
+
+# Local environment
+.env
+.venv/
+*.log

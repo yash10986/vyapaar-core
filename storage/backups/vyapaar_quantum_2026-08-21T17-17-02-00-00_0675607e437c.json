@@ -1,0 +1,949 @@
+{
+    "format": "vyapaar-core-quantum-vault",
+    "version": "1.0",
+    "generated_at": "2026-08-21T17:17:02+00:00",
+    "database": "vyapaar_core",
+    "operator": "Enterprise Operator",
+    "tables": {
+        "audit_logs": {
+            "columns": [
+                "id",
+                "operator_id",
+                "operator_username",
+                "action",
+                "module",
+                "resource_id",
+                "detail",
+                "ip_address",
+                "user_agent",
+                "metadata",
+                "created_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `audit_logs` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `operator_id` int(11) NOT NULL,\n  `operator_username` varchar(100) NOT NULL,\n  `action` varchar(120) NOT NULL,\n  `module` varchar(80) NOT NULL,\n  `resource_id` varchar(100) DEFAULT NULL,\n  `detail` text DEFAULT NULL,\n  `ip_address` varchar(45) DEFAULT NULL,\n  `user_agent` varchar(255) DEFAULT NULL,\n  `metadata` longtext DEFAULT NULL CHECK (json_valid(`metadata`)),\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "auth_group": {
+            "columns": [
+                "id",
+                "name"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `auth_group` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(150) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `name` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "auth_group_permissions": {
+            "columns": [
+                "id",
+                "group_id",
+                "permission_id"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `auth_group_permissions` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `group_id` int(11) NOT NULL,\n  `permission_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),\n  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),\n  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),\n  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "auth_permission": {
+            "columns": [
+                "id",
+                "name",
+                "content_type_id",
+                "codename"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "Can add log entry",
+                    "1",
+                    "add_logentry"
+                ],
+                [
+                    "2",
+                    "Can change log entry",
+                    "1",
+                    "change_logentry"
+                ],
+                [
+                    "3",
+                    "Can delete log entry",
+                    "1",
+                    "delete_logentry"
+                ],
+                [
+                    "4",
+                    "Can view log entry",
+                    "1",
+                    "view_logentry"
+                ],
+                [
+                    "5",
+                    "Can add permission",
+                    "2",
+                    "add_permission"
+                ],
+                [
+                    "6",
+                    "Can change permission",
+                    "2",
+                    "change_permission"
+                ],
+                [
+                    "7",
+                    "Can delete permission",
+                    "2",
+                    "delete_permission"
+                ],
+                [
+                    "8",
+                    "Can view permission",
+                    "2",
+                    "view_permission"
+                ],
+                [
+                    "9",
+                    "Can add group",
+                    "3",
+                    "add_group"
+                ],
+                [
+                    "10",
+                    "Can change group",
+                    "3",
+                    "change_group"
+                ],
+                [
+                    "11",
+                    "Can delete group",
+                    "3",
+                    "delete_group"
+                ],
+                [
+                    "12",
+                    "Can view group",
+                    "3",
+                    "view_group"
+                ],
+                [
+                    "13",
+                    "Can add user",
+                    "4",
+                    "add_user"
+                ],
+                [
+                    "14",
+                    "Can change user",
+                    "4",
+                    "change_user"
+                ],
+                [
+                    "15",
+                    "Can delete user",
+                    "4",
+                    "delete_user"
+                ],
+                [
+                    "16",
+                    "Can view user",
+                    "4",
+                    "view_user"
+                ],
+                [
+                    "17",
+                    "Can add content type",
+                    "5",
+                    "add_contenttype"
+                ],
+                [
+                    "18",
+                    "Can change content type",
+                    "5",
+                    "change_contenttype"
+                ],
+                [
+                    "19",
+                    "Can delete content type",
+                    "5",
+                    "delete_contenttype"
+                ],
+                [
+                    "20",
+                    "Can view content type",
+                    "5",
+                    "view_contenttype"
+                ],
+                [
+                    "21",
+                    "Can add session",
+                    "6",
+                    "add_session"
+                ],
+                [
+                    "22",
+                    "Can change session",
+                    "6",
+                    "change_session"
+                ],
+                [
+                    "23",
+                    "Can delete session",
+                    "6",
+                    "delete_session"
+                ],
+                [
+                    "24",
+                    "Can view session",
+                    "6",
+                    "view_session"
+                ],
+                [
+                    "25",
+                    "Can add inventory item",
+                    "7",
+                    "add_inventoryitem"
+                ],
+                [
+                    "26",
+                    "Can change inventory item",
+                    "7",
+                    "change_inventoryitem"
+                ],
+                [
+                    "27",
+                    "Can delete inventory item",
+                    "7",
+                    "delete_inventoryitem"
+                ],
+                [
+                    "28",
+                    "Can view inventory item",
+                    "7",
+                    "view_inventoryitem"
+                ],
+                [
+                    "29",
+                    "Can add inventory movement",
+                    "8",
+                    "add_inventorymovement"
+                ],
+                [
+                    "30",
+                    "Can change inventory movement",
+                    "8",
+                    "change_inventorymovement"
+                ],
+                [
+                    "31",
+                    "Can delete inventory movement",
+                    "8",
+                    "delete_inventorymovement"
+                ],
+                [
+                    "32",
+                    "Can view inventory movement",
+                    "8",
+                    "view_inventorymovement"
+                ]
+            ],
+            "row_count": 32,
+            "create_sql": "CREATE TABLE `auth_permission` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) NOT NULL,\n  `content_type_id` int(11) NOT NULL,\n  `codename` varchar(100) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),\n  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "auth_user": {
+            "columns": [
+                "id",
+                "password",
+                "last_login",
+                "is_superuser",
+                "username",
+                "first_name",
+                "last_name",
+                "email",
+                "is_staff",
+                "is_active",
+                "date_joined"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "pbkdf2_sha256$1000000$Ly7jiG7ke1Sc4TrPyCBQtP$qeypsLZFObJ9B5QWbtRhfuVGFnUmZdrWVB1R+9ECmpI=",
+                    "2026-08-19 10:23:50.575392",
+                    "1",
+                    "yashs",
+                    "",
+                    "",
+                    "",
+                    "1",
+                    "1",
+                    "2026-08-19 10:22:54.166840"
+                ]
+            ],
+            "row_count": 1,
+            "create_sql": "CREATE TABLE `auth_user` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `password` varchar(128) NOT NULL,\n  `last_login` datetime(6) DEFAULT NULL,\n  `is_superuser` tinyint(1) NOT NULL,\n  `username` varchar(150) NOT NULL,\n  `first_name` varchar(150) NOT NULL,\n  `last_name` varchar(150) NOT NULL,\n  `email` varchar(254) NOT NULL,\n  `is_staff` tinyint(1) NOT NULL,\n  `is_active` tinyint(1) NOT NULL,\n  `date_joined` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `username` (`username`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "auth_user_groups": {
+            "columns": [
+                "id",
+                "user_id",
+                "group_id"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `auth_user_groups` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL,\n  `group_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),\n  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),\n  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),\n  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "auth_user_user_permissions": {
+            "columns": [
+                "id",
+                "user_id",
+                "permission_id"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `auth_user_user_permissions` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL,\n  `permission_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),\n  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),\n  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),\n  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "company_profiles": {
+            "columns": [
+                "id",
+                "tenant_code",
+                "company_name",
+                "trade_name",
+                "owner_name",
+                "gstin",
+                "pan",
+                "cin",
+                "license_number",
+                "license_valid_till",
+                "address",
+                "email",
+                "phone",
+                "bank_name",
+                "bank_account",
+                "ifsc_code",
+                "invoice_prefix",
+                "footer_note",
+                "is_active",
+                "created_at",
+                "updated_at"
+            ],
+            "rows": [
+                [
+                    "12",
+                    "VYAPAARCORE",
+                    "Vyapaar Core Technologies Pvt. Ltd.",
+                    "Vyapaar Core",
+                    "Satkar Sharma",
+                    "27AAACA1111A1Z1",
+                    "AAACA1111A",
+                    "U74999MH2024PTC123456",
+                    "LIC-IND-2026-001",
+                    "2027-12-31",
+                    "Plot 12, APMC Market, Vashi, Mumbai, Maharashtra, 400703",
+                    "contact@vyapaarcore.in",
+                    "+91 98200 12345",
+                    "State Bank of India",
+                    "30129044111",
+                    "SBIN0000512",
+                    "VY-",
+                    "This invoice is computer generated and does not require a signature.",
+                    "1",
+                    "2026-08-07 16:48:26",
+                    "2026-08-07 16:48:26"
+                ],
+                [
+                    "13",
+                    "JOGESHWARI ENTERPRISES",
+                    "JOGESHWARI ENTERPRISES",
+                    "JOGESHWARI ENTERPRISES",
+                    "VINOD P SINKAR",
+                    "27ABCDE1234A1ZD",
+                    "ABCDE5214",
+                    "325698",
+                    "102030405060",
+                    "2028-12-30",
+                    "Main Market, Pune",
+                    "VINODSINKAR6@GMAIL.COM",
+                    "+917020715343",
+                    "HDFC Bank",
+                    "50200037882512",
+                    "HDFC00041",
+                    "JG-02",
+                    "This invoice is computer generated and does not require a signature.",
+                    "1",
+                    "2026-08-07 16:50:45",
+                    "2026-08-07 16:50:45"
+                ]
+            ],
+            "row_count": 2,
+            "create_sql": "CREATE TABLE `company_profiles` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_code` varchar(80) NOT NULL,\n  `company_name` varchar(255) NOT NULL,\n  `trade_name` varchar(255) DEFAULT NULL,\n  `owner_name` varchar(255) DEFAULT NULL,\n  `gstin` varchar(32) DEFAULT NULL,\n  `pan` varchar(20) DEFAULT NULL,\n  `cin` varchar(30) DEFAULT NULL,\n  `license_number` varchar(100) DEFAULT NULL,\n  `license_valid_till` date DEFAULT NULL,\n  `address` text DEFAULT NULL,\n  `email` varchar(150) DEFAULT NULL,\n  `phone` varchar(50) DEFAULT NULL,\n  `bank_name` varchar(150) DEFAULT NULL,\n  `bank_account` varchar(50) DEFAULT NULL,\n  `ifsc_code` varchar(20) DEFAULT NULL,\n  `invoice_prefix` varchar(50) DEFAULT 'VY-',\n  `footer_note` text DEFAULT NULL,\n  `is_active` tinyint(1) DEFAULT 1,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tenant_code` (`tenant_code`)\n) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "customer_ledgers": {
+            "columns": [
+                "id",
+                "invoice_no",
+                "customer_name",
+                "phone",
+                "balance",
+                "due_date",
+                "created_at"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "INV-9001",
+                    "Ravi Traders",
+                    "+919999000001",
+                    "0.00",
+                    "2026-07-23",
+                    "2026-08-04 00:58:50"
+                ],
+                [
+                    "2",
+                    "INV-9002",
+                    "Suresh Supplies",
+                    "+919999000002",
+                    "860.00",
+                    "2026-06-17",
+                    "2026-08-04 00:58:50"
+                ]
+            ],
+            "row_count": 2,
+            "create_sql": "CREATE TABLE `customer_ledgers` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `invoice_no` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `phone` varchar(50) NOT NULL,\n  `balance` decimal(10,2) NOT NULL,\n  `due_date` date NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "django_admin_log": {
+            "columns": [
+                "id",
+                "action_time",
+                "object_id",
+                "object_repr",
+                "action_flag",
+                "change_message",
+                "content_type_id",
+                "user_id"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `django_admin_log` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `action_time` datetime(6) NOT NULL,\n  `object_id` longtext DEFAULT NULL,\n  `object_repr` varchar(200) NOT NULL,\n  `action_flag` smallint(5) unsigned NOT NULL CHECK (`action_flag` >= 0),\n  `change_message` longtext NOT NULL,\n  `content_type_id` int(11) DEFAULT NULL,\n  `user_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),\n  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),\n  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),\n  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "django_content_type": {
+            "columns": [
+                "id",
+                "app_label",
+                "model"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "admin",
+                    "logentry"
+                ],
+                [
+                    "3",
+                    "auth",
+                    "group"
+                ],
+                [
+                    "2",
+                    "auth",
+                    "permission"
+                ],
+                [
+                    "4",
+                    "auth",
+                    "user"
+                ],
+                [
+                    "5",
+                    "contenttypes",
+                    "contenttype"
+                ],
+                [
+                    "9",
+                    "inventory",
+                    "companyprofiles"
+                ],
+                [
+                    "10",
+                    "inventory",
+                    "customerledgers"
+                ],
+                [
+                    "11",
+                    "inventory",
+                    "inventory"
+                ],
+                [
+                    "7",
+                    "inventory",
+                    "inventoryitem"
+                ],
+                [
+                    "8",
+                    "inventory",
+                    "inventorymovement"
+                ],
+                [
+                    "6",
+                    "sessions",
+                    "session"
+                ]
+            ],
+            "row_count": 11,
+            "create_sql": "CREATE TABLE `django_content_type` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `app_label` varchar(100) NOT NULL,\n  `model` varchar(100) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)\n) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "django_migrations": {
+            "columns": [
+                "id",
+                "app",
+                "name",
+                "applied"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "contenttypes",
+                    "0001_initial",
+                    "2026-08-19 10:18:12.632546"
+                ],
+                [
+                    "2",
+                    "auth",
+                    "0001_initial",
+                    "2026-08-19 10:18:13.652798"
+                ],
+                [
+                    "3",
+                    "admin",
+                    "0001_initial",
+                    "2026-08-19 10:18:13.960032"
+                ],
+                [
+                    "4",
+                    "admin",
+                    "0002_logentry_remove_auto_add",
+                    "2026-08-19 10:18:13.971527"
+                ],
+                [
+                    "5",
+                    "admin",
+                    "0003_logentry_add_action_flag_choices",
+                    "2026-08-19 10:18:13.982492"
+                ],
+                [
+                    "6",
+                    "contenttypes",
+                    "0002_remove_content_type_name",
+                    "2026-08-19 10:18:14.064128"
+                ],
+                [
+                    "7",
+                    "auth",
+                    "0002_alter_permission_name_max_length",
+                    "2026-08-19 10:18:14.146000"
+                ],
+                [
+                    "8",
+                    "auth",
+                    "0003_alter_user_email_max_length",
+                    "2026-08-19 10:18:14.166004"
+                ],
+                [
+                    "9",
+                    "auth",
+                    "0004_alter_user_username_opts",
+                    "2026-08-19 10:18:14.175012"
+                ],
+                [
+                    "10",
+                    "auth",
+                    "0005_alter_user_last_login_null",
+                    "2026-08-19 10:18:14.232657"
+                ],
+                [
+                    "11",
+                    "auth",
+                    "0006_require_contenttypes_0002",
+                    "2026-08-19 10:18:14.235650"
+                ],
+                [
+                    "12",
+                    "auth",
+                    "0007_alter_validators_add_error_messages",
+                    "2026-08-19 10:18:14.245679"
+                ],
+                [
+                    "13",
+                    "auth",
+                    "0008_alter_user_username_max_length",
+                    "2026-08-19 10:18:14.266673"
+                ],
+                [
+                    "14",
+                    "auth",
+                    "0009_alter_user_last_name_max_length",
+                    "2026-08-19 10:18:14.284530"
+                ],
+                [
+                    "15",
+                    "auth",
+                    "0010_alter_group_name_max_length",
+                    "2026-08-19 10:18:14.304114"
+                ],
+                [
+                    "16",
+                    "auth",
+                    "0011_update_proxy_permissions",
+                    "2026-08-19 10:18:14.313128"
+                ],
+                [
+                    "17",
+                    "auth",
+                    "0012_alter_user_first_name_max_length",
+                    "2026-08-19 10:18:14.335106"
+                ],
+                [
+                    "18",
+                    "inventory",
+                    "0001_initial",
+                    "2026-08-19 10:18:14.508634"
+                ],
+                [
+                    "19",
+                    "sessions",
+                    "0001_initial",
+                    "2026-08-19 10:18:14.518649"
+                ]
+            ],
+            "row_count": 19,
+            "create_sql": "CREATE TABLE `django_migrations` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `app` varchar(255) NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `applied` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "django_session": {
+            "columns": [
+                "session_key",
+                "session_data",
+                "expire_date"
+            ],
+            "rows": [
+                [
+                    "5rra9tzufr1mdfvdmwk32obccyu610mr",
+                    ".eJxVjEEOwiAQRe_C2pAOAtO6dN8zNDMwSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmqO6KFCn340pPKTsIN6p3KoOtazLzHpX9EGbHmuU5_Vw_w4ytfytz4g9cgAvYk3qGcCzE8veCA3OioMIDjsW4qETbygZjxCTBDTCkdX7A-PiOI4:1wwdSY:zEicEOLYElBRu7sCIXSR1XAoi7UVxh_hu-p5n4ZZ8-E",
+                    "2026-09-02 10:23:50.581341"
+                ]
+            ],
+            "row_count": 1,
+            "create_sql": "CREATE TABLE `django_session` (\n  `session_key` varchar(40) NOT NULL,\n  `session_data` longtext NOT NULL,\n  `expire_date` datetime(6) NOT NULL,\n  PRIMARY KEY (`session_key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "inventory": {
+            "columns": [
+                "item_id",
+                "tenant_id",
+                "item_name",
+                "stock_quantity",
+                "unit_price",
+                "warning_threshold"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "1",
+                    "Basmati Rice Premium",
+                    "15",
+                    "420.00",
+                    "8"
+                ],
+                [
+                    "2",
+                    "1",
+                    "Tata Salt Premium",
+                    "2",
+                    "28.00",
+                    "8"
+                ],
+                [
+                    "3",
+                    "1",
+                    "Fortune Mustard Oil",
+                    "12",
+                    "185.00",
+                    "8"
+                ]
+            ],
+            "row_count": 3,
+            "create_sql": "CREATE TABLE `inventory` (\n  `item_id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_id` int(11) NOT NULL,\n  `item_name` varchar(255) NOT NULL,\n  `stock_quantity` int(11) NOT NULL DEFAULT 0,\n  `unit_price` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `warning_threshold` int(11) NOT NULL DEFAULT 8,\n  PRIMARY KEY (`item_id`),\n  KEY `tenant_id` (`tenant_id`),\n  CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`tenant_id`) ON DELETE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "inventory_inventoryitem": {
+            "columns": [
+                "id",
+                "name",
+                "sku",
+                "category",
+                "opening_stock",
+                "current_stock",
+                "reorder_level",
+                "purchase_price",
+                "selling_price",
+                "gst_rate",
+                "last_updated",
+                "created_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `inventory_inventoryitem` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) NOT NULL,\n  `sku` varchar(100) NOT NULL,\n  `category` varchar(30) NOT NULL,\n  `opening_stock` int(11) NOT NULL,\n  `current_stock` int(11) NOT NULL,\n  `reorder_level` int(11) NOT NULL,\n  `purchase_price` decimal(12,2) NOT NULL,\n  `selling_price` decimal(12,2) NOT NULL,\n  `gst_rate` decimal(5,2) NOT NULL,\n  `last_updated` datetime(6) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `sku` (`sku`),\n  KEY `inventory_item_sku_idx` (`sku`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "inventory_inventorymovement": {
+            "columns": [
+                "id",
+                "movement_type",
+                "quantity",
+                "reference",
+                "notes",
+                "created_at",
+                "item_id"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `inventory_inventorymovement` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `movement_type` varchar(20) NOT NULL,\n  `quantity` int(11) NOT NULL,\n  `reference` varchar(120) NOT NULL,\n  `notes` longtext NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `item_id` bigint(20) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `inventory_inventorym_item_id_9a498b67_fk_inventory` (`item_id`),\n  CONSTRAINT `inventory_inventorym_item_id_9a498b67_fk_inventory` FOREIGN KEY (`item_id`) REFERENCES `inventory_inventoryitem` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "invoices": {
+            "columns": [
+                "invoice_id",
+                "tenant_id",
+                "grand_total",
+                "payment_mode",
+                "created_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `invoices` (\n  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_id` int(11) NOT NULL,\n  `grand_total` decimal(12,2) NOT NULL DEFAULT 0.00,\n  `payment_mode` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`invoice_id`),\n  KEY `tenant_id` (`tenant_id`),\n  CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`tenant_id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "ledger": {
+            "columns": [
+                "id",
+                "ref",
+                "timestamp",
+                "debit",
+                "credit",
+                "amount"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "COLL-89B30BC7",
+                    "2026-08-05 21:21:50",
+                    "Client Receivables",
+                    "Cash Collected",
+                    "1250.50"
+                ]
+            ],
+            "row_count": 1,
+            "create_sql": "CREATE TABLE `ledger` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `ref` varchar(50) NOT NULL,\n  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),\n  `debit` varchar(100) NOT NULL,\n  `credit` varchar(100) NOT NULL,\n  `amount` decimal(10,2) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "orders": {
+            "columns": [
+                "id",
+                "reference",
+                "customer_name",
+                "status",
+                "created_at"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "ORD-1001",
+                    "Ravi Traders",
+                    "Packed",
+                    "2026-08-04 00:58:50"
+                ],
+                [
+                    "2",
+                    "ORD-1002",
+                    "Suresh Supplies",
+                    "In Transit",
+                    "2026-08-04 00:58:50"
+                ]
+            ],
+            "row_count": 2,
+            "create_sql": "CREATE TABLE `orders` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `reference` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `status` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "payment_receipts": {
+            "columns": [
+                "id",
+                "tx_ref",
+                "customer_name",
+                "invoice_refs",
+                "amount",
+                "payment_method",
+                "created_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `payment_receipts` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `tx_ref` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `invoice_refs` text NOT NULL,\n  `amount` decimal(12,2) NOT NULL,\n  `payment_method` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tx_ref` (`tx_ref`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "payment_reminders": {
+            "columns": [
+                "id",
+                "invoice_no",
+                "customer_name",
+                "medium",
+                "contact",
+                "reminder_link",
+                "sent_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `payment_reminders` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `invoice_no` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `medium` varchar(20) NOT NULL,\n  `contact` varchar(150) NOT NULL,\n  `reminder_link` varchar(255) NOT NULL,\n  `sent_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "system_logs": {
+            "columns": [
+                "id",
+                "type",
+                "message",
+                "detail",
+                "timestamp"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "success",
+                    "Collection of ₹1,250.50 for Ravi Traders via UPI",
+                    "Invoice settlement updated",
+                    "2026-08-05 21:21:50"
+                ],
+                [
+                    "2",
+                    "success",
+                    "Quantum snapshot created",
+                    "SHA-256: 93d6043cec1a5352466e099966045a313a72a8952e5822c6e0f439ccf5f912a8",
+                    "2026-08-21 22:31:31"
+                ]
+            ],
+            "row_count": 2,
+            "create_sql": "CREATE TABLE `system_logs` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `type` varchar(20) NOT NULL,\n  `message` text NOT NULL,\n  `detail` varchar(255) DEFAULT NULL,\n  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "system_operators": {
+            "columns": [
+                "id",
+                "fullname",
+                "phone",
+                "email",
+                "username",
+                "password",
+                "security_key",
+                "created_at"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "Yash Sinkar",
+                    "+918483055500",
+                    "YASHSINKAR303@GMAIL.COM",
+                    "0400",
+                    "$2y$10$O9LBZv.jNTG/A.40tkHP3upNyATaG07mhyL8TUGHmot8KgHpjzKCC",
+                    "040603",
+                    "2026-07-13 16:53:07"
+                ],
+                [
+                    "2",
+                    "Yash Sinkar",
+                    "+918483055500",
+                    "VINODSINKAR6@GMAIL.COM",
+                    "vinod_15",
+                    "$2y$10$k4Mw8az6aGVFDA4ah1u.g..RFp79wPns68dkicg0A0IFrGT090BOS",
+                    "151277",
+                    "2026-07-14 19:30:58"
+                ]
+            ],
+            "row_count": 2,
+            "create_sql": "CREATE TABLE `system_operators` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `fullname` varchar(150) NOT NULL,\n  `phone` varchar(20) NOT NULL,\n  `email` varchar(150) NOT NULL,\n  `username` varchar(100) NOT NULL,\n  `password` varchar(255) NOT NULL,\n  `security_key` char(6) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `username` (`username`),\n  UNIQUE KEY `email` (`email`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "tenants": {
+            "columns": [
+                "tenant_id",
+                "business_name",
+                "gst_number",
+                "created_at"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "Kiran Supermart Mumbai",
+                    "27AAACK1234F1Z3",
+                    "2026-07-11 23:20:52"
+                ]
+            ],
+            "row_count": 1,
+            "create_sql": "CREATE TABLE `tenants` (\n  `tenant_id` int(11) NOT NULL AUTO_INCREMENT,\n  `business_name` varchar(255) NOT NULL,\n  `gst_number` varchar(15) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`tenant_id`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci"
+        },
+        "warehouses": {
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "location",
+                "created_at"
+            ],
+            "rows": [],
+            "row_count": 0,
+            "create_sql": "CREATE TABLE `warehouses` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `code` varchar(50) NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `location` varchar(255) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `code` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        },
+        "wholesalers": {
+            "columns": [
+                "id",
+                "firm_name",
+                "gstin",
+                "address",
+                "phone",
+                "bank_name",
+                "account_number",
+                "ifsc_code",
+                "status",
+                "created_at"
+            ],
+            "rows": [
+                [
+                    "1",
+                    "Indo-Aryan Wholesale Foods",
+                    "27AAACA1111A1Z1",
+                    "Plot 12, APMC Market, Vashi, Mumbai",
+                    "+91 98200 12345",
+                    "State Bank of India",
+                    "30129044111",
+                    "SBIN0000512",
+                    "active",
+                    "2026-08-04 17:54:55"
+                ],
+                [
+                    "2",
+                    "Saraswati Agro Importers",
+                    "27AAACS2222B2Z2",
+                    "Grains Yard, Nagpur, Maharashtra",
+                    "+91 99300 54321",
+                    "HDFC Bank Ltd",
+                    "501002221144",
+                    "HDFC0000060",
+                    "active",
+                    "2026-08-04 17:54:55"
+                ],
+                [
+                    "3",
+                    "Lunawat & Associates",
+                    "27AAACL3333C1Z3",
+                    "Industrial Estate, Pune, Maharashtra",
+                    "+91 90900 77889",
+                    "ICICI Bank",
+                    "100410001234",
+                    "ICIC0001004",
+                    "active",
+                    "2026-08-04 17:54:55"
+                ]
+            ],
+            "row_count": 3,
+            "create_sql": "CREATE TABLE `wholesalers` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `firm_name` varchar(255) NOT NULL,\n  `gstin` varchar(20) DEFAULT NULL,\n  `address` varchar(255) DEFAULT NULL,\n  `phone` varchar(50) DEFAULT NULL,\n  `bank_name` varchar(255) DEFAULT NULL,\n  `account_number` varchar(50) DEFAULT NULL,\n  `ifsc_code` varchar(20) DEFAULT NULL,\n  `status` varchar(20) DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+        }
+    },
+    "summary": {
+        "table_count": 26,
+        "row_count": 82
+    },
+    "integrity": {
+        "algorithm": "SHA-256",
+        "hash": "0675607e437c2f94a55a52fde45a6bcc0f037ca0646df04369e361f6afcf7b67"
+    },
+    "sql_dump": "-- Vyapaar Core Quantum Vault SQL companion\nSET FOREIGN_KEY_CHECKS=0;\n\n-- TABLE `audit_logs`\nDROP TABLE IF EXISTS `audit_logs`;\nCREATE TABLE `audit_logs` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `operator_id` int(11) NOT NULL,\n  `operator_username` varchar(100) NOT NULL,\n  `action` varchar(120) NOT NULL,\n  `module` varchar(80) NOT NULL,\n  `resource_id` varchar(100) DEFAULT NULL,\n  `detail` text DEFAULT NULL,\n  `ip_address` varchar(45) DEFAULT NULL,\n  `user_agent` varchar(255) DEFAULT NULL,\n  `metadata` longtext DEFAULT NULL CHECK (json_valid(`metadata`)),\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- TABLE `auth_group`\nDROP TABLE IF EXISTS `auth_group`;\nCREATE TABLE `auth_group` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(150) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `name` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `auth_group_permissions`\nDROP TABLE IF EXISTS `auth_group_permissions`;\nCREATE TABLE `auth_group_permissions` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `group_id` int(11) NOT NULL,\n  `permission_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),\n  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),\n  CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),\n  CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `auth_permission`\nDROP TABLE IF EXISTS `auth_permission`;\nCREATE TABLE `auth_permission` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) NOT NULL,\n  `content_type_id` int(11) NOT NULL,\n  `codename` varchar(100) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),\n  CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES\n('1', 'Can add log entry', '1', 'add_logentry'),\n('2', 'Can change log entry', '1', 'change_logentry'),\n('3', 'Can delete log entry', '1', 'delete_logentry'),\n('4', 'Can view log entry', '1', 'view_logentry'),\n('5', 'Can add permission', '2', 'add_permission'),\n('6', 'Can change permission', '2', 'change_permission'),\n('7', 'Can delete permission', '2', 'delete_permission'),\n('8', 'Can view permission', '2', 'view_permission'),\n('9', 'Can add group', '3', 'add_group'),\n('10', 'Can change group', '3', 'change_group'),\n('11', 'Can delete group', '3', 'delete_group'),\n('12', 'Can view group', '3', 'view_group'),\n('13', 'Can add user', '4', 'add_user'),\n('14', 'Can change user', '4', 'change_user'),\n('15', 'Can delete user', '4', 'delete_user'),\n('16', 'Can view user', '4', 'view_user'),\n('17', 'Can add content type', '5', 'add_contenttype'),\n('18', 'Can change content type', '5', 'change_contenttype'),\n('19', 'Can delete content type', '5', 'delete_contenttype'),\n('20', 'Can view content type', '5', 'view_contenttype'),\n('21', 'Can add session', '6', 'add_session'),\n('22', 'Can change session', '6', 'change_session'),\n('23', 'Can delete session', '6', 'delete_session'),\n('24', 'Can view session', '6', 'view_session'),\n('25', 'Can add inventory item', '7', 'add_inventoryitem'),\n('26', 'Can change inventory item', '7', 'change_inventoryitem'),\n('27', 'Can delete inventory item', '7', 'delete_inventoryitem'),\n('28', 'Can view inventory item', '7', 'view_inventoryitem'),\n('29', 'Can add inventory movement', '8', 'add_inventorymovement'),\n('30', 'Can change inventory movement', '8', 'change_inventorymovement'),\n('31', 'Can delete inventory movement', '8', 'delete_inventorymovement'),\n('32', 'Can view inventory movement', '8', 'view_inventorymovement');\n\n-- TABLE `auth_user`\nDROP TABLE IF EXISTS `auth_user`;\nCREATE TABLE `auth_user` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `password` varchar(128) NOT NULL,\n  `last_login` datetime(6) DEFAULT NULL,\n  `is_superuser` tinyint(1) NOT NULL,\n  `username` varchar(150) NOT NULL,\n  `first_name` varchar(150) NOT NULL,\n  `last_name` varchar(150) NOT NULL,\n  `email` varchar(254) NOT NULL,\n  `is_staff` tinyint(1) NOT NULL,\n  `is_active` tinyint(1) NOT NULL,\n  `date_joined` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `username` (`username`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES\n('1', 'pbkdf2_sha256$1000000$Ly7jiG7ke1Sc4TrPyCBQtP$qeypsLZFObJ9B5QWbtRhfuVGFnUmZdrWVB1R+9ECmpI=', '2026-08-19 10:23:50.575392', '1', 'yashs', '', '', '', '1', '1', '2026-08-19 10:22:54.166840');\n\n-- TABLE `auth_user_groups`\nDROP TABLE IF EXISTS `auth_user_groups`;\nCREATE TABLE `auth_user_groups` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL,\n  `group_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),\n  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),\n  CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),\n  CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `auth_user_user_permissions`\nDROP TABLE IF EXISTS `auth_user_user_permissions`;\nCREATE TABLE `auth_user_user_permissions` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL,\n  `permission_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),\n  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`),\n  CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),\n  CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `company_profiles`\nDROP TABLE IF EXISTS `company_profiles`;\nCREATE TABLE `company_profiles` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_code` varchar(80) NOT NULL,\n  `company_name` varchar(255) NOT NULL,\n  `trade_name` varchar(255) DEFAULT NULL,\n  `owner_name` varchar(255) DEFAULT NULL,\n  `gstin` varchar(32) DEFAULT NULL,\n  `pan` varchar(20) DEFAULT NULL,\n  `cin` varchar(30) DEFAULT NULL,\n  `license_number` varchar(100) DEFAULT NULL,\n  `license_valid_till` date DEFAULT NULL,\n  `address` text DEFAULT NULL,\n  `email` varchar(150) DEFAULT NULL,\n  `phone` varchar(50) DEFAULT NULL,\n  `bank_name` varchar(150) DEFAULT NULL,\n  `bank_account` varchar(50) DEFAULT NULL,\n  `ifsc_code` varchar(20) DEFAULT NULL,\n  `invoice_prefix` varchar(50) DEFAULT 'VY-',\n  `footer_note` text DEFAULT NULL,\n  `is_active` tinyint(1) DEFAULT 1,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tenant_code` (`tenant_code`)\n) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `company_profiles` (`id`, `tenant_code`, `company_name`, `trade_name`, `owner_name`, `gstin`, `pan`, `cin`, `license_number`, `license_valid_till`, `address`, `email`, `phone`, `bank_name`, `bank_account`, `ifsc_code`, `invoice_prefix`, `footer_note`, `is_active`, `created_at`, `updated_at`) VALUES\n('12', 'VYAPAARCORE', 'Vyapaar Core Technologies Pvt. Ltd.', 'Vyapaar Core', 'Satkar Sharma', '27AAACA1111A1Z1', 'AAACA1111A', 'U74999MH2024PTC123456', 'LIC-IND-2026-001', '2027-12-31', 'Plot 12, APMC Market, Vashi, Mumbai, Maharashtra, 400703', 'contact@vyapaarcore.in', '+91 98200 12345', 'State Bank of India', '30129044111', 'SBIN0000512', 'VY-', 'This invoice is computer generated and does not require a signature.', '1', '2026-08-07 16:48:26', '2026-08-07 16:48:26'),\n('13', 'JOGESHWARI ENTERPRISES', 'JOGESHWARI ENTERPRISES', 'JOGESHWARI ENTERPRISES', 'VINOD P SINKAR', '27ABCDE1234A1ZD', 'ABCDE5214', '325698', '102030405060', '2028-12-30', 'Main Market, Pune', 'VINODSINKAR6@GMAIL.COM', '+917020715343', 'HDFC Bank', '50200037882512', 'HDFC00041', 'JG-02', 'This invoice is computer generated and does not require a signature.', '1', '2026-08-07 16:50:45', '2026-08-07 16:50:45');\n\n-- TABLE `customer_ledgers`\nDROP TABLE IF EXISTS `customer_ledgers`;\nCREATE TABLE `customer_ledgers` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `invoice_no` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `phone` varchar(50) NOT NULL,\n  `balance` decimal(10,2) NOT NULL,\n  `due_date` date NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `customer_ledgers` (`id`, `invoice_no`, `customer_name`, `phone`, `balance`, `due_date`, `created_at`) VALUES\n('1', 'INV-9001', 'Ravi Traders', '+919999000001', '0.00', '2026-07-23', '2026-08-04 00:58:50'),\n('2', 'INV-9002', 'Suresh Supplies', '+919999000002', '860.00', '2026-06-17', '2026-08-04 00:58:50');\n\n-- TABLE `django_admin_log`\nDROP TABLE IF EXISTS `django_admin_log`;\nCREATE TABLE `django_admin_log` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `action_time` datetime(6) NOT NULL,\n  `object_id` longtext DEFAULT NULL,\n  `object_repr` varchar(200) NOT NULL,\n  `action_flag` smallint(5) unsigned NOT NULL CHECK (`action_flag` >= 0),\n  `change_message` longtext NOT NULL,\n  `content_type_id` int(11) DEFAULT NULL,\n  `user_id` int(11) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),\n  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),\n  CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),\n  CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `django_content_type`\nDROP TABLE IF EXISTS `django_content_type`;\nCREATE TABLE `django_content_type` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `app_label` varchar(100) NOT NULL,\n  `model` varchar(100) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)\n) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES\n('1', 'admin', 'logentry'),\n('3', 'auth', 'group'),\n('2', 'auth', 'permission'),\n('4', 'auth', 'user'),\n('5', 'contenttypes', 'contenttype'),\n('9', 'inventory', 'companyprofiles'),\n('10', 'inventory', 'customerledgers'),\n('11', 'inventory', 'inventory'),\n('7', 'inventory', 'inventoryitem'),\n('8', 'inventory', 'inventorymovement'),\n('6', 'sessions', 'session');\n\n-- TABLE `django_migrations`\nDROP TABLE IF EXISTS `django_migrations`;\nCREATE TABLE `django_migrations` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `app` varchar(255) NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `applied` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES\n('1', 'contenttypes', '0001_initial', '2026-08-19 10:18:12.632546'),\n('2', 'auth', '0001_initial', '2026-08-19 10:18:13.652798'),\n('3', 'admin', '0001_initial', '2026-08-19 10:18:13.960032'),\n('4', 'admin', '0002_logentry_remove_auto_add', '2026-08-19 10:18:13.971527'),\n('5', 'admin', '0003_logentry_add_action_flag_choices', '2026-08-19 10:18:13.982492'),\n('6', 'contenttypes', '0002_remove_content_type_name', '2026-08-19 10:18:14.064128'),\n('7', 'auth', '0002_alter_permission_name_max_length', '2026-08-19 10:18:14.146000'),\n('8', 'auth', '0003_alter_user_email_max_length', '2026-08-19 10:18:14.166004'),\n('9', 'auth', '0004_alter_user_username_opts', '2026-08-19 10:18:14.175012'),\n('10', 'auth', '0005_alter_user_last_login_null', '2026-08-19 10:18:14.232657'),\n('11', 'auth', '0006_require_contenttypes_0002', '2026-08-19 10:18:14.235650'),\n('12', 'auth', '0007_alter_validators_add_error_messages', '2026-08-19 10:18:14.245679'),\n('13', 'auth', '0008_alter_user_username_max_length', '2026-08-19 10:18:14.266673'),\n('14', 'auth', '0009_alter_user_last_name_max_length', '2026-08-19 10:18:14.284530'),\n('15', 'auth', '0010_alter_group_name_max_length', '2026-08-19 10:18:14.304114'),\n('16', 'auth', '0011_update_proxy_permissions', '2026-08-19 10:18:14.313128'),\n('17', 'auth', '0012_alter_user_first_name_max_length', '2026-08-19 10:18:14.335106'),\n('18', 'inventory', '0001_initial', '2026-08-19 10:18:14.508634'),\n('19', 'sessions', '0001_initial', '2026-08-19 10:18:14.518649');\n\n-- TABLE `django_session`\nDROP TABLE IF EXISTS `django_session`;\nCREATE TABLE `django_session` (\n  `session_key` varchar(40) NOT NULL,\n  `session_data` longtext NOT NULL,\n  `expire_date` datetime(6) NOT NULL,\n  PRIMARY KEY (`session_key`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES\n('5rra9tzufr1mdfvdmwk32obccyu610mr', '.eJxVjEEOwiAQRe_C2pAOAtO6dN8zNDMwSNVAUtqV8e7apAvd_vfef6mJtjVPW5NlmqO6KFCn340pPKTsIN6p3KoOtazLzHpX9EGbHmuU5_Vw_w4ytfytz4g9cgAvYk3qGcCzE8veCA3OioMIDjsW4qETbygZjxCTBDTCkdX7A-PiOI4:1wwdSY:zEicEOLYElBRu7sCIXSR1XAoi7UVxh_hu-p5n4ZZ8-E', '2026-09-02 10:23:50.581341');\n\n-- TABLE `inventory`\nDROP TABLE IF EXISTS `inventory`;\nCREATE TABLE `inventory` (\n  `item_id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_id` int(11) NOT NULL,\n  `item_name` varchar(255) NOT NULL,\n  `stock_quantity` int(11) NOT NULL DEFAULT 0,\n  `unit_price` decimal(10,2) NOT NULL DEFAULT 0.00,\n  `warning_threshold` int(11) NOT NULL DEFAULT 8,\n  PRIMARY KEY (`item_id`),\n  KEY `tenant_id` (`tenant_id`),\n  CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`tenant_id`) ON DELETE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `inventory` (`item_id`, `tenant_id`, `item_name`, `stock_quantity`, `unit_price`, `warning_threshold`) VALUES\n('1', '1', 'Basmati Rice Premium', '15', '420.00', '8'),\n('2', '1', 'Tata Salt Premium', '2', '28.00', '8'),\n('3', '1', 'Fortune Mustard Oil', '12', '185.00', '8');\n\n-- TABLE `inventory_inventoryitem`\nDROP TABLE IF EXISTS `inventory_inventoryitem`;\nCREATE TABLE `inventory_inventoryitem` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) NOT NULL,\n  `sku` varchar(100) NOT NULL,\n  `category` varchar(30) NOT NULL,\n  `opening_stock` int(11) NOT NULL,\n  `current_stock` int(11) NOT NULL,\n  `reorder_level` int(11) NOT NULL,\n  `purchase_price` decimal(12,2) NOT NULL,\n  `selling_price` decimal(12,2) NOT NULL,\n  `gst_rate` decimal(5,2) NOT NULL,\n  `last_updated` datetime(6) NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `sku` (`sku`),\n  KEY `inventory_item_sku_idx` (`sku`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `inventory_inventorymovement`\nDROP TABLE IF EXISTS `inventory_inventorymovement`;\nCREATE TABLE `inventory_inventorymovement` (\n  `id` bigint(20) NOT NULL AUTO_INCREMENT,\n  `movement_type` varchar(20) NOT NULL,\n  `quantity` int(11) NOT NULL,\n  `reference` varchar(120) NOT NULL,\n  `notes` longtext NOT NULL,\n  `created_at` datetime(6) NOT NULL,\n  `item_id` bigint(20) NOT NULL,\n  PRIMARY KEY (`id`),\n  KEY `inventory_inventorym_item_id_9a498b67_fk_inventory` (`item_id`),\n  CONSTRAINT `inventory_inventorym_item_id_9a498b67_fk_inventory` FOREIGN KEY (`item_id`) REFERENCES `inventory_inventoryitem` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `invoices`\nDROP TABLE IF EXISTS `invoices`;\nCREATE TABLE `invoices` (\n  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,\n  `tenant_id` int(11) NOT NULL,\n  `grand_total` decimal(12,2) NOT NULL DEFAULT 0.00,\n  `payment_mode` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`invoice_id`),\n  KEY `tenant_id` (`tenant_id`),\n  CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`tenant_id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\n\n-- TABLE `ledger`\nDROP TABLE IF EXISTS `ledger`;\nCREATE TABLE `ledger` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `ref` varchar(50) NOT NULL,\n  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),\n  `debit` varchar(100) NOT NULL,\n  `credit` varchar(100) NOT NULL,\n  `amount` decimal(10,2) NOT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `ledger` (`id`, `ref`, `timestamp`, `debit`, `credit`, `amount`) VALUES\n('1', 'COLL-89B30BC7', '2026-08-05 21:21:50', 'Client Receivables', 'Cash Collected', '1250.50');\n\n-- TABLE `orders`\nDROP TABLE IF EXISTS `orders`;\nCREATE TABLE `orders` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `reference` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `status` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `orders` (`id`, `reference`, `customer_name`, `status`, `created_at`) VALUES\n('1', 'ORD-1001', 'Ravi Traders', 'Packed', '2026-08-04 00:58:50'),\n('2', 'ORD-1002', 'Suresh Supplies', 'In Transit', '2026-08-04 00:58:50');\n\n-- TABLE `payment_receipts`\nDROP TABLE IF EXISTS `payment_receipts`;\nCREATE TABLE `payment_receipts` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `tx_ref` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `invoice_refs` text NOT NULL,\n  `amount` decimal(12,2) NOT NULL,\n  `payment_method` varchar(50) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tx_ref` (`tx_ref`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- TABLE `payment_reminders`\nDROP TABLE IF EXISTS `payment_reminders`;\nCREATE TABLE `payment_reminders` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `invoice_no` varchar(100) NOT NULL,\n  `customer_name` varchar(150) NOT NULL,\n  `medium` varchar(20) NOT NULL,\n  `contact` varchar(150) NOT NULL,\n  `reminder_link` varchar(255) NOT NULL,\n  `sent_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- TABLE `system_logs`\nDROP TABLE IF EXISTS `system_logs`;\nCREATE TABLE `system_logs` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `type` varchar(20) NOT NULL,\n  `message` text NOT NULL,\n  `detail` varchar(255) DEFAULT NULL,\n  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `system_logs` (`id`, `type`, `message`, `detail`, `timestamp`) VALUES\n('1', 'success', 'Collection of ₹1,250.50 for Ravi Traders via UPI', 'Invoice settlement updated', '2026-08-05 21:21:50'),\n('2', 'success', 'Quantum snapshot created', 'SHA-256: 93d6043cec1a5352466e099966045a313a72a8952e5822c6e0f439ccf5f912a8', '2026-08-21 22:31:31');\n\n-- TABLE `system_operators`\nDROP TABLE IF EXISTS `system_operators`;\nCREATE TABLE `system_operators` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `fullname` varchar(150) NOT NULL,\n  `phone` varchar(20) NOT NULL,\n  `email` varchar(150) NOT NULL,\n  `username` varchar(100) NOT NULL,\n  `password` varchar(255) NOT NULL,\n  `security_key` char(6) NOT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `username` (`username`),\n  UNIQUE KEY `email` (`email`)\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `system_operators` (`id`, `fullname`, `phone`, `email`, `username`, `password`, `security_key`, `created_at`) VALUES\n('1', 'Yash Sinkar', '+918483055500', 'YASHSINKAR303@GMAIL.COM', '0400', '$2y$10$O9LBZv.jNTG/A.40tkHP3upNyATaG07mhyL8TUGHmot8KgHpjzKCC', '040603', '2026-07-13 16:53:07'),\n('2', 'Yash Sinkar', '+918483055500', 'VINODSINKAR6@GMAIL.COM', 'vinod_15', '$2y$10$k4Mw8az6aGVFDA4ah1u.g..RFp79wPns68dkicg0A0IFrGT090BOS', '151277', '2026-07-14 19:30:58');\n\n-- TABLE `tenants`\nDROP TABLE IF EXISTS `tenants`;\nCREATE TABLE `tenants` (\n  `tenant_id` int(11) NOT NULL AUTO_INCREMENT,\n  `business_name` varchar(255) NOT NULL,\n  `gst_number` varchar(15) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`tenant_id`)\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;\nINSERT INTO `tenants` (`tenant_id`, `business_name`, `gst_number`, `created_at`) VALUES\n('1', 'Kiran Supermart Mumbai', '27AAACK1234F1Z3', '2026-07-11 23:20:52');\n\n-- TABLE `warehouses`\nDROP TABLE IF EXISTS `warehouses`;\nCREATE TABLE `warehouses` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `code` varchar(50) NOT NULL,\n  `name` varchar(255) NOT NULL,\n  `location` varchar(255) DEFAULT NULL,\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `code` (`code`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- TABLE `wholesalers`\nDROP TABLE IF EXISTS `wholesalers`;\nCREATE TABLE `wholesalers` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `firm_name` varchar(255) NOT NULL,\n  `gstin` varchar(20) DEFAULT NULL,\n  `address` varchar(255) DEFAULT NULL,\n  `phone` varchar(50) DEFAULT NULL,\n  `bank_name` varchar(255) DEFAULT NULL,\n  `account_number` varchar(50) DEFAULT NULL,\n  `ifsc_code` varchar(20) DEFAULT NULL,\n  `status` varchar(20) DEFAULT 'active',\n  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\nINSERT INTO `wholesalers` (`id`, `firm_name`, `gstin`, `address`, `phone`, `bank_name`, `account_number`, `ifsc_code`, `status`, `created_at`) VALUES\n('1', 'Indo-Aryan Wholesale Foods', '27AAACA1111A1Z1', 'Plot 12, APMC Market, Vashi, Mumbai', '+91 98200 12345', 'State Bank of India', '30129044111', 'SBIN0000512', 'active', '2026-08-04 17:54:55'),\n('2', 'Saraswati Agro Importers', '27AAACS2222B2Z2', 'Grains Yard, Nagpur, Maharashtra', '+91 99300 54321', 'HDFC Bank Ltd', '501002221144', 'HDFC0000060', 'active', '2026-08-04 17:54:55'),\n('3', 'Lunawat & Associates', '27AAACL3333C1Z3', 'Industrial Estate, Pune, Maharashtra', '+91 90900 77889', 'ICICI Bank', '100410001234', 'ICIC0001004', 'active', '2026-08-04 17:54:55');\n\nSET FOREIGN_KEY_CHECKS=1;\n"
+}
